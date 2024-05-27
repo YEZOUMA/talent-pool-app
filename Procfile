@@ -1,1 +1,1 @@
-web: gunicorn talent_pool_project.wsgi
+web: gunicorn talent_pool_project.wsgi --log-file -
