@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des profils - Talent Pool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #0779e4 3px solid;
+        }
+        header a {
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+        header ul {
+            padding: 0;
+            list-style: none;
+        }
+        header li {
+            float: left;
+            display: inline;
+            padding: 0 20px 0 20px;
+        }
+        header #branding {
+            float: left;
+        }
+        header #branding h1 {
+            margin: 0;
+        }
+        header nav {
+            float: right;
+            margin-top: 10px;
+        }
+        #showcase {
+            min-height: 400px;
+            background: url('showcase.jpg') no-repeat 0 -400px;
+            text-align: center;
+            color: #fff;
+        }
+        #showcase h1 {
+            margin-top: 100px;
+            font-size: 55px;
+            margin-bottom: 10px;
+        }
+        #showcase p {
+            font-size: 20px;
+        }
+        .search-bar {
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+        .search-bar input, .search-bar select {
+            padding: 10px;
+            font-size: 16px;
+            margin-right: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .search-bar button {
+            padding: 10px 20px;
+            background: #333;
+            border: 0;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+        }
+        .profile-list {
+            list-style: none;
+            padding: 0;
+        }
+        .profile-list li {
+            background: #fff;
+            padding: 20px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .profile-list h2 {
+            margin-top: 0;
+        }
+        .profile-list a {
+            color: #333;
+            text-decoration: none;
+        }
+        .profile-list a:hover {
+            text-decoration: underline;
+        }
+        .profile-actions a {
+            margin-right: 10px;
+            color: #0779e4;
+            text-decoration: none;
+        }
+        .profile-actions a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1>Talent Pool</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'profile_create' %}">Créer un nouveau profil</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="search-bar">
+            <form method="get" action="">
+                <input type="text" name="q" placeholder="Rechercher par nom ou compétence" value="{{ request.GET.q }}">
+                <select name="location">
+                    <option value="">-- Choisir une localisation --</option>
+                    {% for loc in locations %}
+                        <option value="{{ loc }}" {% if request.GET.location == loc %}selected{% endif %}>{{ loc }}</option>
+                    {% endfor %}
+                </select>
+                <select name="experience">
+                    <option value="">-- Choisir une expérience --</option>
+                    {% for exp in experiences %}
+                        <option value="{{ exp }}" {% if request.GET.experience == exp %}selected{% endif %}>{{ exp }} ans</option>
+                    {% endfor %}
+                </select>
+                <button type="submit">Rechercher</button>
+            </form>
+        </div>
+
+        <h1>Liste des profils</h1>
+        <ul class="profile-list">
+            {% for profile in profiles %}
+                <li>
+                    <h2><a href="{% url 'profile_detail' profile.pk %}">{{ profile.name }}</a></h2>
+                    <p>Email : {{ profile.email }}</p>
+                    <p>Localisation : {{ profile.location }}</p>
+                    <p>Expérience : {{ profile.experience }} ans</p>
+                    <p>Compétences : {{ profile.skills }}</p>
+                    <div class="profile-actions">
+                        <a href="{% url 'profile_update' profile.pk %}">Éditer</a>
+                        <a href="{% url 'profile_delete' profile.pk %}">Supprimer</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

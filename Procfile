@@ -1,0 +1,1 @@
+web: gunicorn talent_pool_project.wsgi

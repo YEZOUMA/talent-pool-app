@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ form.instance.pk|yesno:"Modifier un profil,Créer un nouveau profil" }}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <h1>{{ form.instance.pk|yesno:"Modifier un profil,Créer un nouveau profil" }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Enregistrer</button>
+    </form>
+    <a href="{% url 'profile_list' %}">Retour à la liste</a>
+</body>
+</html>

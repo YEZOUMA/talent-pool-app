@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Détails du profil</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Détails du profil</h1>
+        <table class="table table-bordered">
+            <tr>
+                <th>Nom</th>
+                <td>{{ profile.name }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ profile.email }}</td>
+            </tr>
+            <tr>
+                <th>Localisation</th>
+                <td>{{ profile.location }}</td>
+            </tr>
+            <tr>
+                <th>Expérience</th>
+                <td>{{ profile.experience }} ans</td>
+            </tr>
+            <tr>
+                <th>Compétences</th>
+                <td>{{ profile.skills }}</td>
+            </tr>
+            <tr>
+                <th>Industrie</th>
+                <td>{{ profile.industry }}</td>
+            </tr>
+            <tr>
+                <th>Disponibilité</th>
+                <td>{{ profile.availability }}</td>
+            </tr>
+        </table>
+        <a href="{% url 'profile_update' profile.pk %}" class="btn btn-primary">Modifier</a>
+        <a href="{% url 'profile_list' %}" class="btn btn-secondary">Retour à la liste</a>
+        <a href="{% url 'profile_delete' profile.pk %}" class="btn btn-danger">Supprimer</a>
+    </div>
+</body>
+</html>
