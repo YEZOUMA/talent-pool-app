@@ -134,10 +134,12 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 env = environ.Env()
+
+# Lecture des variables d'environnement à partir d'un fichier .env
 environ.Env.read_env()
 
 DATABASES = {
-    'default': env.db(),
+    'default': env.db('DATABASE_URL', default='mysql://root:Bonzi3991@@localhost:3306/talent_pool'),
 }
 
 
